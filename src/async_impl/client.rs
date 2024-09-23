@@ -726,7 +726,7 @@ impl ClientBuilder {
             }
         }
 
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(not(target_family = "wasm"))]
         builder.timer(hyper_util::rt::TokioTimer::new());
         builder.pool_idle_timeout(config.pool_idle_timeout);
         builder.pool_max_idle_per_host(config.pool_max_idle_per_host);

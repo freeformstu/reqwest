@@ -1,4 +1,4 @@
-#![cfg(not(target_arch = "wasm32"))]
+#![cfg(not(target_family = "wasm"))]
 #![cfg(not(feature = "rustls-tls-manual-roots-no-provider"))]
 mod support;
 use support::server;

@@ -1,4 +1,4 @@
-#![cfg(not(target_arch = "wasm32"))]
+#![cfg(not(target_family = "wasm"))]
 #![cfg(not(feature = "rustls-tls-manual-roots-no-provider"))]
 mod support;
 use support::server;
@@ -57,7 +57,7 @@ async fn request_timeout() {
 
     let err = res.unwrap_err();
 
-    if cfg!(not(target_arch = "wasm32")) {
+    if cfg!(not(target_family = "wasm")) {
         assert!(err.is_timeout() && !err.is_connect());
     } else {
         assert!(err.is_timeout());
@@ -65,7 +65,7 @@ async fn request_timeout() {
     assert_eq!(err.url().map(|u| u.as_str()), Some(url.as_str()));
 }
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(target_family = "wasm"))]
 #[tokio::test]
 async fn connect_timeout() {
     let _ = env_logger::try_init();
@@ -89,7 +89,7 @@ async fn connect_timeout() {
     assert!(err.is_connect() && err.is_timeout());
 }
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(target_family = "wasm"))]
 #[tokio::test]
 async fn connect_many_timeout_succeeds() {
     let _ = env_logger::try_init();
@@ -117,7 +117,7 @@ async fn connect_many_timeout_succeeds() {
         .unwrap();
 }
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(target_family = "wasm"))]
 #[tokio::test]
 async fn connect_many_timeout() {
     let _ = env_logger::try_init();
